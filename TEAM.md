@@ -97,8 +97,8 @@ Nguyên tắc chung:
 | --- | --- | --- | --- |
 | Dương Ngọc Tuyên | Trưởng nhóm · Integration · Shape A `workflow`, `src/lab8/shapes/workflow.py`, nhánh `feat/workflow`; merge 4 nhánh vào `main` | `998d2a7` | `src/tests/test_team_workflow.py` (thêm mới, 23 test: ticket nói dối hoặc injection không đổi số tiền, không lấy mã đơn từ ticket, trace không có secret hay ticket, crash rồi resume chỉ một refund) |
 | Nguyễn Tiến Hưng | Shape B single (ReAct), `src/lab8/shapes/single.py`, nhánh `feat/single` | `13668f2` | `src/tests/test_team_single.py` (thêm mới: số bước ≤ 8, model không gọi `issue_refund`, không tin ticket, trace sạch) |
-| Dương Minh Tân | Shape C `orchestrator` + handoff | | |
-| Phan Sỹ Hùng | Ledger / policy / crash | | |
+| Dương Minh Tân | Shape C `orchestrator` + handoff, `src/lab8/shapes/orchestrator.py`, nhánh `feat/orchestrator`; bonus B1 (`src/bonus/`, nhánh `bonus/b1-parallel`) | `bf7edad`, `177c11c` (bonus B1) | `src/tests/test_team_orchestrator.py` (thêm mới: handoff chỉ chứa field allowlist và tool chỉ đọc, trace không có secret hay ticket, 3 điểm crash resume ra một refund, approval sai claim hoặc bị thu hồi thì denied); `src/tests/test_bonus_parallel.py` |
+| Phan Sỹ Hùng | Ledger / policy / crash (QA must-pass), nhánh `test/durability`; `src/reports/crash.json` | `8986fa8` | `src/tests/test_team_durability.py` (thêm mới: approval hết hạn, revoked/pending/rejected, approval của claim khác, approval thấp hơn quote, phép tính trần theo đơn, crash rồi resume, conflict số tiền, T11/T12 trên cả 3 shape) |
 | Dương Thị Huệ | Eval / benchmark / báo cáo | `39b683f` (trace scanner + test + ablation R2) | `src/tests/test_team_trace_scan.py` (thêm mới: scanner bắt leak cài sẵn, 3 shape × 14 claim public trace/stdout sạch) |
 
 ## Cá nhân
