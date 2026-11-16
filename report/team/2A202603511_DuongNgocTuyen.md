@@ -58,7 +58,9 @@ MockLLM được gọi đúng một lần (`purpose="draft"`) để soạn câu 
 
 ## 4. Bằng chứng
 
-- Commit Shape A và test: `998d2a7` (nhánh `feat/workflow`). Merge vào `main`: `c7e2961`. Commit chốt sau khi merge 4 nhánh: `fcfac65`.
+- Commit Shape A và test: `998d2a7` (nhánh `feat/workflow`). Merge vào `main`: `c7e2961`. Merge 4 nhánh shape và durability: `fcfac65`. Merge `eval/report`, `feat/single`, `bonus/b1-parallel`: `5cb4eb0`. Merge `docs/tan-report`: `31288c5`. Commit chốt ghi trong ADR: `a397a3a`.
+- Hidden selfcheck do tôi chạy trên `student_drop/` (không nhãn): `src/reports/hidden_selfcheck.json`, 3 shape × 200 trial, 0 lỗi, 0 `leak_suspect`.
+- Trên commit chốt: `python -m pytest -q` → 192 passed; `python -m lab8.check_submission` → 0 FAIL, 0 WARN.
 - Tự kiểm shape: `python -m pytest -q -m student -o addopts= -k workflow` → **62 passed**.
 - Cổng host trên `main` sau merge: `python -m pytest -q` → **130 passed**, không có `failed`. Ma trận student cả 4 shape: **248 passed**.
 - `python -m lab8.check_submission`: `shape workflow: format đúng, 12/12 claim public pass ở seed 11`.
@@ -102,9 +104,8 @@ MockLLM được gọi đúng một lần (`purpose="draft"`) để soạn câu 
 - Phân công 5 người.
 - Merge 4 nhánh vào `main`: cổng host và ma trận student đều xanh, thành viên pull về làm tiếp được.
 
-**Còn mở ở CP5:**
-- Merge nhánh `eval/report`.
-- Chạy `reports/benchmark.json` chính thức.
-- Điền `decision_adr.md` (shape chọn, commit hash, run id, số liệu) và đưa `check_submission` về `0 FAIL` trước khi push bản cuối.
+**CP5 (đã xong):**
+- Merge `eval/report`, `bonus/b1-parallel`, `docs/tan-report` vào `main`.
+- Chạy hidden selfcheck, ghi commit chốt `a397a3a` vào ADR, `check_submission` ra `0 FAIL`, push bản cuối.
 
 **Rút ra:** với task mà mọi dữ kiện về tiền đều có cấu trúc sẵn trong database, tăng mức tự chủ (single, orchestrator, swarm) chỉ thêm cost và bề mặt rủi ro mà không thêm độ chính xác. Kết luận này sẽ đổi nếu claim cần hiểu ngôn ngữ tự nhiên mới xác định được loại khiếu nại.

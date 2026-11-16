@@ -5,7 +5,7 @@
 - Tên nhóm: CapNongCapNia
 - Lớp: L3A
 - Repo nhóm: `K5-L3A-DAY08-CapNongCapNia-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt: https://github.com/tuyenboy198/K5-L3A-DAY08-CapNongCapNia-FromWorkflowsToAgents, nhánh `main`, commit chốt: _(điền ở CP5)_
+- URL repo, nhánh nộp, commit chốt: https://github.com/tuyenboy198/K5-L3A-DAY08-CapNongCapNia-FromWorkflowsToAgents, nhánh `main`, commit chốt: `a397a3a`
 
 ## Thành viên
 
