@@ -145,3 +145,23 @@ Sao chép mục dưới đây cho từng thành viên.
 - `python -m pytest -q -m student -o addopts= -k "single and not workflow and not orchestrator and not swarm"` → 62 passed.
 - `python -m pytest -q` xanh, có thêm 26 test của `test_team_single.py`.
 - Run id: `R-single-C-006-s11`, `R-single-C-012-s11`.
+
+## 2A202603430_DuongThiHue
+
+### Phần việc phụ trách
+
+- Eval / benchmark / báo cáo, nhánh `eval/report`. Báo cáo cá nhân: [report/team/2A202603430_DuongThiHue.md](report/team/2A202603430_DuongThiHue.md).
+
+### Đóng góp cụ thể
+
+- CP1: dựng khung `report/team/group_report.md`.
+- CP2: điền research card R2 (MAST), ablation swarm → workflow.
+- CP3: script quét trace `src/scripts/trace_scan.py` (secret, header, SĐT, địa chỉ, ghi chú nội bộ, tên hàng; quét cả stdout) cho cả nhóm dùng.
+- CP5: benchmark 4 shape × 5 seed (`src/reports/benchmark.json`), điền ADR, hoàn thiện group report.
+- Test thêm: `src/tests/test_team_trace_scan.py` (55 test).
+
+### Bằng chứng
+
+- Commit: `39b683f`, `a9031fa`, `433cfbd`.
+- `python -m scripts.trace_scan --run workflow,single,orchestrator --seeds 11,22,33,44,55` → CLEAN, 210 trial, 0 phát hiện.
+- `python -m lab8.check_submission` → 0 FAIL, 0 WARN.
