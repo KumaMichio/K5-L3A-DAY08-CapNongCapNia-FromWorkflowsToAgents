@@ -78,7 +78,7 @@ An toàn:
 | Crash safety | 20/20 (chạy lại trên code đã merge cũng ra 20/20) | `src/reports/crash.json` |
 | Approval bypass | 0 — 15/15 trial thiếu approval hợp lệ (C-004, C-005, C-007 × 5 seed) mỗi shape đều pass, không có refund | `src/reports/benchmark.json` + `test_team_durability.py` |
 | Secret leak | 0 / 210 trial (3 shape × 14 claim × 5 seed) | `python -m scripts.trace_scan --run workflow,single,orchestrator --seeds 11,22,33,44,55` |
-| Hidden selfcheck (`student_drop/`) | Chưa chạy: chưa nhận `student_drop/` | `src/reports/hidden_selfcheck.json` (khi có) |
+| Hidden selfcheck (`student_drop/`) | 3 shape × 40 claim × 5 seed = 600 trial: 0 lỗi, trace đúng contract, 0 `leak_suspect` (không nhãn nên không có pass rate) | `src/reports/hidden_selfcheck.json` |
 
 Cổng test: `python -m pytest -q` → 185 passed; `python -m pytest -q -m student -o addopts=` → 248 passed (62 test × 4 shape).
 
@@ -99,7 +99,7 @@ Chi tiết đóng góp của từng thành viên nằm trong `TEAM.md` (bảng �
 
 MockLLM không phải model sản xuất; latency là `unavailable`. Bộ public chỉ có 14 claim, nên chênh lệch pass rate nhỏ (một trial = 1/70) dễ là nhiễu; quyết định phải dựa thêm vào pass^5, variance và hidden selfcheck. Scanner dựa trên danh sách chuỗi cấm lấy từ dữ liệu và vài regex: PII bị biến đổi (viết hoa/thường khác, chèn khoảng trắng, mã hoá) sẽ lọt.
 
-Kết luận chọn workflow đổi nếu: hidden cho thấy workflow dưới 0.75 do gặp ticket mơ hồ mà luật cố định không phủ trong khi single vượt ngưỡng; hoặc task có nhiều nguồn đọc độc lập đủ để orchestrator giảm số bước; hoặc dùng LLM thật và việc đọc ticket bằng model đáng giá hơn chi phí. Chưa có hidden selfcheck vì chưa nhận `student_drop/`.
+Kết luận chọn workflow đổi nếu: hidden cho thấy workflow dưới 0.75 do gặp ticket mơ hồ mà luật cố định không phủ trong khi single vượt ngưỡng; hoặc task có nhiều nguồn đọc độc lập đủ để orchestrator giảm số bước; hoặc dùng LLM thật và việc đọc ticket bằng model đáng giá hơn chi phí. Hidden selfcheck trên `student_drop/` không cho thấy dấu hiệu đó: cả 3 shape chạy hết 200 trial không lỗi, trace sạch; pass rate hidden chính thức do grader của giảng viên chấm.
 
 ## 8. Tài liệu tham khảo
 

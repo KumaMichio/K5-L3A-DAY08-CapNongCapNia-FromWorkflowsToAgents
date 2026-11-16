@@ -29,4 +29,4 @@ Event theo shape (đọc từ code đã merge): workflow `claim`, `lookup_order`
 
 ## Giới hạn
 
-MockLLM không phải model sản xuất. Latency để `unavailable`. Không sửa JSON cho đủ 0.75. Số trên là bộ public (14 claim); chưa có `student_drop/` trên máy chạy benchmark nên chưa có hidden selfcheck. Bộ public nhỏ: một trial = 1/70 pass rate, nên chênh 0.014 giữa swarm và các shape khác chỉ đến từ đúng một trial (T02 seed 55).
+MockLLM không phải model sản xuất. Latency để `unavailable`. Không sửa JSON cho đủ 0.75. Số trên là bộ public (14 claim). Hidden selfcheck trên `student_drop/` (40 claim × 5 seed, không nhãn, `src/reports/hidden_selfcheck.json`): workflow, single, orchestrator mỗi shape 200 trial, 0 trial lỗi (`status` ≠ `error`), trace đúng contract, 0 `leak_suspect`; selfcheck không có nhãn nên không cho pass rate, điểm hidden chính thức do grader của giảng viên chấm. Bộ public nhỏ: một trial = 1/70 pass rate, nên chênh 0.014 giữa swarm và các shape khác chỉ đến từ đúng một trial (T02 seed 55).
