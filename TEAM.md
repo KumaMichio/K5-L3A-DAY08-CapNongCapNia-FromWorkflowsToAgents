@@ -25,7 +25,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| | | | |
+| Dương Thị Huệ (2A202603430) | Eval / benchmark / báo cáo | `39b683f` (trace scanner + test + ablation R2) | `src/tests/test_team_trace_scan.py` |
 
 ## Cá nhân
 
