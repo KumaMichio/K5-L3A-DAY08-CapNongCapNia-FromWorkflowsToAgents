@@ -4,7 +4,7 @@
 
 - Họ tên: Dương Thị Huệ
 - MSSV: 2A202603430
-- Email:
+- Email: duonghue2004yp@gmail.com
 - GitHub: dhuee10
 
 ## 2. Phần việc phụ trách
