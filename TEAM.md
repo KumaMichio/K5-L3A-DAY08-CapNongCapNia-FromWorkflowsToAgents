@@ -97,7 +97,7 @@ Nguyên tắc chung:
 | --- | --- | --- | --- |
 | Dương Ngọc Tuyên | Trưởng nhóm · Integration · Shape A `workflow`, `src/lab8/shapes/workflow.py`, nhánh `feat/workflow`; merge 4 nhánh vào `main` | `998d2a7` | `src/tests/test_team_workflow.py` (thêm mới, 23 test: ticket nói dối hoặc injection không đổi số tiền, không lấy mã đơn từ ticket, trace không có secret hay ticket, crash rồi resume chỉ một refund) |
 | Nguyễn Tiến Hưng | Shape B single (ReAct), `src/lab8/shapes/single.py`, nhánh `feat/single` | `13668f2` | `src/tests/test_team_single.py` (thêm mới: số bước ≤ 8, model không gọi `issue_refund`, không tin ticket, trace sạch) |
-| Dương Minh Tân | Shape C `orchestrator` + handoff, `src/lab8/shapes/orchestrator.py`, nhánh `feat/orchestrator`; bonus B1 (`src/bonus/`, nhánh `bonus/b1-parallel`) | `bf7edad`, `177c11c` (bonus B1) | `src/tests/test_team_orchestrator.py` (thêm mới: handoff chỉ chứa field allowlist và tool chỉ đọc, trace không có secret hay ticket, 3 điểm crash resume ra một refund, approval sai claim hoặc bị thu hồi thì denied); `src/tests/test_bonus_parallel.py` |
+| Dương Minh Tân | Shape C `orchestrator` + handoff, `src/lab8/shapes/orchestrator.py`, nhánh `feat/orchestrator`; bonus B1 (`src/bonus/`, nhánh `bonus/b1-parallel`) | `bf7edad`, `177c11c` (bonus B1) | `src/tests/test_team_orchestrator.py` (thêm mới, 6 test: handoff đã sanitize và chỉ có tool đọc, trace không có `CANARY_SECRET_`; crash ở 3 điểm đều resume ra đúng 1 refund; approval của claim khác hoặc đã thu hồi → `denied`); `src/tests/test_bonus_parallel.py` |
 | Phan Sỹ Hùng | Ledger / policy / crash (QA must-pass), nhánh `test/durability`; `src/reports/crash.json` | `8986fa8` | `src/tests/test_team_durability.py` (thêm mới: approval hết hạn, revoked/pending/rejected, approval của claim khác, approval thấp hơn quote, phép tính trần theo đơn, crash rồi resume, conflict số tiền, T11/T12 trên cả 3 shape) |
 | Dương Thị Huệ | Eval / benchmark / báo cáo | `39b683f` (trace scanner + test + ablation R2) | `src/tests/test_team_trace_scan.py` (thêm mới: scanner bắt leak cài sẵn, 3 shape × 14 claim public trace/stdout sạch) |
 
@@ -165,3 +165,22 @@ Sao chép mục dưới đây cho từng thành viên.
 - Commit: `39b683f`, `a9031fa`, `433cfbd`.
 - `python -m scripts.trace_scan --run workflow,single,orchestrator --seeds 11,22,33,44,55` → CLEAN, 210 trial, 0 phát hiện.
 - `python -m lab8.check_submission` → 0 FAIL, 0 WARN.
+
+## 2A202603464_DuongMinhTan
+
+### Phần việc phụ trách
+
+- Shape C `orchestrator` + handoff: `src/lab8/shapes/orchestrator.py`, nhánh `feat/orchestrator`. Báo cáo cá nhân: [report/team/2A202603464_DuongMinhTan.md](report/team/2A202603464_DuongMinhTan.md).
+
+### Đóng góp cụ thể
+
+- CP2: dựng handoff bằng `make_handoff` với 4 tool chỉ đọc (`lookup_order`, `lookup_policy`, `lookup_refund_history`, `compute_compensation`), `facts={}`; investigator đọc order, orchestrator quote và là nơi duy nhất gọi `durability.issue_refund` với quote đầy đủ.
+- CP3: truyền `crash_at`, không bắt `InjectedCrash`; trace chỉ ghi handoff đã sanitize, không ghi parent context.
+- CP4: rà trace orchestrator không có secret, SĐT, địa chỉ, tên hàng, internal note.
+- Test thêm: `src/tests/test_team_orchestrator.py` (6 test).
+
+### Bằng chứng
+
+- Commit: `bf7edad`; PR: https://github.com/tuyenboy198/K5-L3A-DAY08-CapNongCapNia-FromWorkflowsToAgents/pull/1
+- `python -m pytest -q -m student -o addopts= -k orchestrator` → 62 passed.
+- Run id: `R-orchestrator-C-001-s11`.

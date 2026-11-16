@@ -64,6 +64,8 @@ P4 — Shape C `orchestrator` + handoff (`src/lab8/shapes/orchestrator.py`), nh�
 - Số liệu ở mục 4 lấy từ output lệnh chạy thật, không viết tay.
 
 ## 6. Tự đánh giá
+- Hoàn thành xây dựng Orchestrator và luồng handoff giữa Investigator và Orchestrator, push lên nhánh feat/orchestrator và tạo PR.
 
-<!-- Tự viết phần này. RULES.md không cho dùng AI viết phần tự đánh giá. -->
+- Đảm bảo handoff được sanitize, trace không ghi nhận thông tin nhạy cảm hoặc parent context.
 
+- Xây dựng và kiểm tra các trường hợp bảo mật, đã pass 62/62 test passed và bổ sung test cho các tình huống còn thiếu.
