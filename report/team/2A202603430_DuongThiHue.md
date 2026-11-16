@@ -14,8 +14,8 @@ Vai EV (Eval / benchmark / báo cáo), nhánh `eval/report`:
 - CP1: dựng khung `report/team/group_report.md`.
 - CP2: điền research card (`report/team/research_card.md`), chọn R2 · Failure taxonomy (MAST).
 - CP3: script quét trace tìm secret/PII cho cả nhóm (`src/scripts/trace_scan.py`) và test `src/tests/test_team_trace_scan.py`.
-- CP4: bonus — nhóm chưa đăng ký topic.
-- CP5: chạy benchmark 4 shape × 5 seed và hidden selfcheck, cùng nhóm điền ADR, hoàn thiện group report.
+- CP4: bonus — nhóm không đăng ký topic.
+- CP5: chạy benchmark 4 shape × 5 seed (`src/reports/benchmark.json`), kiểm lại crash suite, quét trace 210 trial, điền ADR, hoàn thiện group report và research card. Hidden selfcheck chưa chạy vì chưa nhận `student_drop/`.
 
 ## 3. Đóng góp cụ thể
 
@@ -29,10 +29,16 @@ Vai EV (Eval / benchmark / báo cáo), nhánh `eval/report`:
   - So khớp token theo biên từ để tên hàng ngắn ("Sach", "Ghe") không báo nhầm bên trong từ khác.
   - Chọn R2 cho research card vì đo được ngay trên swarm có sẵn: lỗi duy nhất của swarm trên public (`R-swarm-C-002-s55`, T02 seed 55) là lỗi kiểm chứng (tin số ngày trong ticket, trace có event `model_override`).
 
+- CP5 (sau khi workflow, single, orchestrator, durability merge vào `main` `fcfac65`): merge `main` vào `eval/report`, chạy benchmark và điền số vào `decision_adr.md`, `group_report.md` mục 4, `research_card.md`.
+
 ## 4. Bằng chứng
 
+- Benchmark: `python -m lab8.benchmark --shapes workflow,single,orchestrator,swarm --cases data/public_claims.jsonl --seeds 11,22,33,44,55 --out reports/benchmark.json` → workflow / single / orchestrator pass 1.000, pass^5 1.000; swarm 0.986 / 0.929; cost/success 28.80 / 41.19 / 56.63 / 49.57 VND mô phỏng.
+- `python -m scripts.trace_scan --run workflow,single,orchestrator --seeds 11,22,33,44,55` → `CLEAN, trials=210, findings=0`.
+- `python -m lab8.crash_test --count 20` chạy lại trên code đã merge → `crash_safety 20/20`.
+
 - Commit: `39b683f` trên nhánh `eval/report`.
-- Test: `python -m pytest -q` → 109 passed (54 cổng host + 55 test của mình).
+- Test: `python -m pytest -q` → 185 passed sau khi merge (55 test của mình); `-m student` → 248 passed.
 - `python -m scripts.trace_scan --run swarm --seeds 11,55` → `trace_scan CLEAN | trials=28 | errors=0 | findings=0`.
 - Kiểm thử scanner với shape workflow của Tuyên (nhánh `feat/workflow`, chạy tạm trên máy, không commit): `--run workflow --seeds 11,22,33,44,55` → `CLEAN, trials=70, findings=0`.
 - Ablation R2: `src/reports/ablation_r2_swarm.json` — swarm pass 0.986, pass^5 0.929, seed min–max 0.929–1.000, variance 0.000816, cost/success 49.57 VND mô phỏng.
@@ -44,4 +50,4 @@ Vai EV (Eval / benchmark / báo cáo), nhánh `eval/report`:
 
 ## 6. Tự đánh giá
 
-Xong CP1–CP3 của vai EV. Còn lại CP5: benchmark 4 shape và hidden selfcheck sau khi workflow, single, orchestrator merge vào `main`, rồi điền số vào ADR, group report và nửa workflow của ablation R2.
+Xong CP1–CP3 và CP5 của vai EV trên bộ public. Còn lại: hidden selfcheck khi nhận `student_drop/`.
