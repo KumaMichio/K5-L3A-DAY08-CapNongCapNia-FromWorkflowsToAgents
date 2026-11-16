@@ -95,7 +95,7 @@ Nguyên tắc chung:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| Dương Ngọc Tuyên | Trưởng nhóm · Integration · Shape A `workflow` | | |
+| Dương Ngọc Tuyên | Trưởng nhóm · Integration · Shape A `workflow`, `src/lab8/shapes/workflow.py`, nhánh `feat/workflow`; merge 4 nhánh vào `main` | `998d2a7` | `src/tests/test_team_workflow.py` (thêm mới, 23 test: ticket nói dối hoặc injection không đổi số tiền, không lấy mã đơn từ ticket, trace không có secret hay ticket, crash rồi resume chỉ một refund) |
 | Nguyễn Tiến Hưng | Shape B single (ReAct), `src/lab8/shapes/single.py`, nhánh `feat/single` | `13668f2` | `src/tests/test_team_single.py` (thêm mới: số bước ≤ 8, model không gọi `issue_refund`, không tin ticket, trace sạch) |
 | Dương Minh Tân | Shape C `orchestrator` + handoff | | |
 | Phan Sỹ Hùng | Ledger / policy / crash | | |
